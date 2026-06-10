@@ -11,7 +11,7 @@ pg.font.init()
 class Menu:
     def __init__(self, width, height, surface):
         self.img_directory = (
-            Path(__file__).resolve().parent.parent / "Images" / "Menu.png"
+            Path(__file__).resolve().parent.parent / "images" / "menu.png"
         ).as_posix()
         self.bg_image = pg.image.load(self.img_directory).convert_alpha()
         self.WIDTH, self.HEIGHT = width, height
