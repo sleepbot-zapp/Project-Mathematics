@@ -20,10 +20,10 @@ def find_extrema(function_str):
 
             second_derivative = sp.diff(function, x, 2).subs(x, point)
 
-            if second_derivative > 0:
+            if second_derivative.is_positive:
                 extrema.append((point, "minima"))
 
-            elif second_derivative < 0:
+            elif second_derivative.is_negative:
                 extrema.append((point, "maxima"))
 
             else:

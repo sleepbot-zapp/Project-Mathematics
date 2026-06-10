@@ -1,4 +1,5 @@
 import sys
+from typing import Literal, Optional
 
 import pygame
 import pygame_gui
@@ -7,7 +8,7 @@ from tools import convert_latex, return_latex_surface, solve
 
 
 class EquationSolver:
-    def __init__(self, surface, width, height):
+    def __init__(self, surface, width: int, height: int) -> None:
         self.WIDTH, self.HEIGHT, self.SURFACE = width, height, surface
         self.manager = pygame_gui.UIManager((self.WIDTH, self.HEIGHT))
         self.clock = pygame.time.Clock()
@@ -42,7 +43,7 @@ class EquationSolver:
             self.equation = None
             self.error_message = f"Error solving equation: {str(e)}"
 
-    def run(self):
+    def run(self) -> Optional[Literal["menu"]]:
         while self.running:
             time_delta = self.clock.tick(60) / 1000.0
             for event in pygame.event.get():

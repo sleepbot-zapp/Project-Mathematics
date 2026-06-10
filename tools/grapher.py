@@ -1,9 +1,12 @@
+from typing import Any
+
 import numpy as np
+import numpy.typing as npt
 import pygame as pg
 
 
 class Plotter:
-    def __init__(self, width: int, height: int, scale=30):
+    def __init__(self, width: int, height: int, scale=30) -> None:
         self.WIDTH = width
         self.HEIGHT = height
         self.ORIGIN_X = width // 2
@@ -20,7 +23,7 @@ class Plotter:
         self.u_bound = (self.ORIGIN_Y + 500) / self.SCALE
         self.d_bound = (self.ORIGIN_Y - self.HEIGHT - 500) / self.SCALE
 
-    def draw_graph(self, surface):
+    def draw_graph(self, surface) -> None:
         grid_step = 5 if self.SCALE < 20 else 1
         pixel_step = self.SCALE * grid_step
         offset_x = self.ORIGIN_X % pixel_step
@@ -49,7 +52,7 @@ class Plotter:
             surface, "black", (self.ORIGIN_X, 0), (self.ORIGIN_X, self.HEIGHT), 1
         )
 
-    def plot(self, math_cords: np.array, color=(255, 0, 0)):
+    def plot(self, math_cords: npt.NDArray[Any], color=(255, 0, 0)) -> None:
         math_x, math_y = math_cords.T
         view_mask = (
             (math_x > self.l_bound)
@@ -71,12 +74,12 @@ class Plotter:
         self.lines.append((pts, color))
         self.draw = False
 
-    def draw_points(self, surface):
+    def draw_points(self, surface) -> None:
         for pts, color in self.lines:
             if pts.shape[0] >= 2:
                 pg.draw.aalines(surface, color, False, pts)
 
-    def movement(self, event):
+    def movement(self, event) -> None:
         if event[0] == "panning":
             self.ORIGIN_X += event[1][0]
             self.ORIGIN_Y += event[1][1]

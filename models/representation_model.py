@@ -1,4 +1,5 @@
 import sys
+from typing import Literal, Optional
 
 import numpy as np
 import pygame as pg
@@ -9,7 +10,7 @@ from tools import Plotter, parse_function
 
 
 class Func:
-    def __init__(self, function: list):
+    def __init__(self, function: list) -> None:
         self.num_functions = []
         for i in function:
             self.exp = parse_function(function_str=i)
@@ -20,7 +21,7 @@ class Func:
 
 
 class GraphRepresentation:
-    def __init__(self, surface, WIDTH, HEIGHT, CLOCK):
+    def __init__(self, surface, WIDTH: int, HEIGHT: int, CLOCK) -> None:
         self.WIDTH, self.HEIGHT = WIDTH, HEIGHT
         self.SURFACE = surface
         self.graph = Plotter(width=self.WIDTH, height=self.HEIGHT)
@@ -93,7 +94,7 @@ class GraphRepresentation:
         for func in self.fn.num_functions:
             self.matrix.append(self.graph.generate_points(x_space, func))
 
-    def run(self):
+    def run(self) -> Optional[Literal["menu"]]:
 
         while self.running:
             time_delta = self.CLOCK.tick(75) / 1000.0

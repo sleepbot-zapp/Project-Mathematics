@@ -1,4 +1,5 @@
 import sys
+from typing import Literal, Optional
 
 import pygame as pygame
 import pygame_gui
@@ -8,7 +9,7 @@ from tools import convert_latex, integrate, parse_function, return_latex_surface
 
 
 class Integral:
-    def __init__(self, WIDTH, HEIGHT, surface):
+    def __init__(self, WIDTH: int, HEIGHT: int, surface) -> None:
         self.WIDTH = WIDTH
         self.HEIGHT = HEIGHT
         self.surface = surface
@@ -36,7 +37,7 @@ class Integral:
         self.error_message = None
         self.font = pygame.font.SysFont(None, 28)
 
-    def calculate_integral(self):
+    def calculate_integral(self) -> None:
         self.error_message = None
         self.expression_raw = self.input_box.get_text().strip()
         if not self.expression_raw:
@@ -49,7 +50,7 @@ class Integral:
             self.integral_expression = None
             self.error_message = "Error solving integral"
 
-    def run(self):
+    def run(self) -> Optional[Literal["menu"]]:
         while self.running:
             time_delta = self.clock.tick(60) / 1000.0
             for event in pygame.event.get():

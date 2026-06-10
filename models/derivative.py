@@ -1,4 +1,5 @@
 import sys
+from typing import Literal, Optional
 
 import pygame
 import pygame_gui
@@ -8,7 +9,7 @@ from tools import convert_latex, differentiate, parse_function, return_latex_sur
 
 
 class Derivative:
-    def __init__(self, WIDTH, HEIGHT, surface):
+    def __init__(self, WIDTH: int, HEIGHT: int, surface) -> None:
 
         self.WIDTH = WIDTH
 
@@ -104,7 +105,7 @@ class Derivative:
 
         return differentiate(expression, self.x, order)
 
-    def run(self):
+    def run(self) -> Optional[Literal["menu"]]:
 
         while self.running:
             time_delta = self.clock.tick(60) / 1000.0

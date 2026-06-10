@@ -1,5 +1,6 @@
 import sys
 from pathlib import Path
+from typing import Literal, Optional
 
 import pygame as pg
 
@@ -9,7 +10,7 @@ pg.font.init()
 
 
 class Menu:
-    def __init__(self, width, height, surface):
+    def __init__(self, width: int, height: int, surface) -> None:
         self.img_directory = (
             Path(__file__).resolve().parent.parent / "images" / "menu.png"
         ).as_posix()

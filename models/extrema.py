@@ -2,12 +2,12 @@ import sys
 
 import pygame
 import pygame_gui
-
+from typing import Literal, Optional
 from tools import convert_latex, find_extrema, return_latex_surface
 
 
 class Extrema:
-    def __init__(self, surface, width, height):
+    def __init__(self, surface, width: int, height: int) -> None:
         self.surface = surface
         self.width = width
         self.height = height
@@ -46,7 +46,7 @@ class Extrema:
             self.extrema = None
             self.error_message = "Error Parsing Expression"
 
-    def run(self):
+    def run(self) -> Optional[Literal["menu"]]:
         while self.running:
             time_delta = self.clock.tick(60) / 1000.0
             for event in pygame.event.get():
