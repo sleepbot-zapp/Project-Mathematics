@@ -1,15 +1,14 @@
 import sympy as sp
-    
-def integrate(function_str, variable):
+
+
+def differentiate(function_str, variable, order):
 
     function = function_str
 
     if function is not None:
-
         x = variable
 
-        return sp.integrate(function, x)
+        return sp.diff(function, x, order)
 
     else:
-
         return None
