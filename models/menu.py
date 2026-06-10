@@ -26,16 +26,12 @@ class Menu:
             "Agents",
         ]
         self.running = True
-
-    @property
-    def font(self):
-        return pg.font.SysFont("Bahnschrift", int(self.total_boxes_y // 2))
-
-    @property
-    def cords(self):
+        self.total_boxes_x = self.WIDTH // 15
+        self.total_boxes_y = self.HEIGHT // 12
+        self.font = pg.font.SysFont("Bahnschrift", int(self.total_boxes_y // 2))
         """The screen is divided into 15 parts horizontally, They are ordered as: 1, 6(box), 1, 6(box), 1"""
         """It is divided into 12 parts vertically given 1, 1(box), 1, 1(box), 1, 1(box), 6"""
-        self.boxes = [
+        self.cords = [
             pg.Rect(
                 self.total_boxes_x,
                 self.total_boxes_y,
@@ -73,16 +69,6 @@ class Menu:
                 self.total_boxes_y,
             ),
         ]
-        return self.boxes
-
-    @property
-    def total_boxes_x(self):
-        return self.WIDTH // 15
-
-    @property
-    def total_boxes_y(self):
-
-        return self.HEIGHT // 12
 
     def run(self):
         while self.running:
