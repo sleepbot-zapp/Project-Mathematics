@@ -18,12 +18,12 @@ class Menu:
         self.scaled_image = pg.transform.scale(self.bg_image, (self.WIDTH, self.HEIGHT))
         self.SURFACE = surface
         self.func_lists = [
-            "Graph",
-            "Eq_Solver",
-            "Derivative",
-            "Integral",
-            "Extrema",
-            "Agents",
+            "graph",
+            "eq_solver",
+            "derivative",
+            "integral",
+            "extrema",
+            "agents",
         ]
         self.running = True
         self.total_boxes_x = self.WIDTH // 15

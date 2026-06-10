@@ -1,5 +1,5 @@
-import sys
 import webbrowser
+from enum import StrEnum
 
 import pygame as pg
 
@@ -12,8 +12,6 @@ from models import (
     Menu,
 )
 
-view = "menu"
-
 WIDTH, HEIGHT = 1280, 720
 
 screen = pg.display.set_mode((WIDTH, HEIGHT), flags=pg.RESIZABLE)
@@ -21,6 +19,16 @@ screen = pg.display.set_mode((WIDTH, HEIGHT), flags=pg.RESIZABLE)
 pg.display.set_caption("Math Tool")
 
 CLOCK = pg.time.Clock()
+
+
+class View(StrEnum):
+    MENU = "menu"
+    GRAPH = "graph"
+    DERIVATIVE = "derivative"
+    INTEGRAL = "integral"
+    EQSOLVER = "eq_solver"
+    EXTREMA = "extrema"
+    AGENTS = "agents"
 
 
 class Engine:
@@ -37,56 +45,56 @@ class Engine:
         while True:
             self.WIDTH, self.HEIGHT = screen.get_size()
 
-            if self.view == "menu":
-                self.CURRENT_VIEW = Menu(
-                    width=self.WIDTH, height=self.HEIGHT, surface=screen
-                )
+            match self.view:
+                case View.MENU:
+                    self.CURRENT_VIEW = Menu(
+                        width=self.WIDTH, height=self.HEIGHT, surface=screen
+                    )
+                    self.view = self.CURRENT_VIEW.run()
 
-                self.view = self.CURRENT_VIEW.run()
+                case View.GRAPH:
+                    self.CURRENT_VIEW = GraphRepresentation(
+                        surface=screen,
+                        WIDTH=self.WIDTH,
+                        HEIGHT=self.HEIGHT,
+                        CLOCK=CLOCK,
+                    )
+                    self.view = self.CURRENT_VIEW.run()
 
-            if self.view == "Graph":
-                self.CURRENT_VIEW = GraphRepresentation(
-                    surface=screen, WIDTH=self.WIDTH, HEIGHT=self.HEIGHT, CLOCK=CLOCK
-                )
+                case View.DERIVATIVE:
+                    self.CURRENT_VIEW = Derivative(
+                        WIDTH=self.WIDTH, HEIGHT=self.HEIGHT, surface=screen
+                    )
+                    self.view = self.CURRENT_VIEW.run()
 
-                self.view = self.CURRENT_VIEW.run()
+                case View.INTEGRAL:
+                    self.CURRENT_VIEW = Integral(
+                        WIDTH=self.WIDTH, HEIGHT=self.HEIGHT, surface=screen
+                    )
+                    self.view = self.CURRENT_VIEW.run()
 
-            if self.view == "Derivative":
-                self.CURRENT_VIEW = Derivative(
-                    WIDTH=self.WIDTH, HEIGHT=self.HEIGHT, surface=screen
-                )
+                case View.EQSOLVER:
+                    self.CURRENT_VIEW = EquationSolver(
+                        surface=screen, width=self.WIDTH, height=self.HEIGHT
+                    )
+                    self.view = self.CURRENT_VIEW.run()
 
-                self.view = self.CURRENT_VIEW.run()
+                case View.EXTREMA:
+                    self.CURRENT_VIEW = Extrema(
+                        surface=screen, width=self.WIDTH, height=self.HEIGHT
+                    )
+                    self.view = self.CURRENT_VIEW.run()
 
-            if self.view == "Integral":
-                self.CURRENT_VIEW = Integral(
-                    WIDTH=self.WIDTH, HEIGHT=self.HEIGHT, surface=screen
-                )
+                case View.AGENTS:
+                    webbrowser.open("http://localhost:8000")
 
-                self.view = self.CURRENT_VIEW.run()
+                    self.CURRENT_VIEW = Menu(
+                        width=self.WIDTH, height=self.HEIGHT, surface=screen
+                    )
+                    self.view = self.CURRENT_VIEW.run()
 
-            if self.view == "Eq_Solver":
-                self.CURRENT_VIEW = EquationSolver(
-                    surface=screen, width=self.WIDTH, height=self.HEIGHT
-                )
-
-                self.view = self.CURRENT_VIEW.run()
-
-            if self.view == "Extrema":
-                self.CURRENT_VIEW = Extrema(
-                    surface=screen, width=self.WIDTH, height=self.HEIGHT
-                )
-
-                self.view = self.CURRENT_VIEW.run()
-
-            if self.view == "Agents":
-                webbrowser.open("http://localhost:8000")
-
-                self.CURRENT_VIEW = Menu(
-                    width=self.WIDTH, height=self.HEIGHT, surface=screen
-                )
-
-                self.view = self.CURRENT_VIEW.run()
+                case _:
+                    self.view = View.MENU
 
 
 if __name__ == "__main__":
