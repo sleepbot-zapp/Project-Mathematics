@@ -1,12 +1,10 @@
 import sympy as sp
-
-from .parse_function import parse_function
-
+from Tools.parse_function import parse_function
 
 def solve(function_str):
 
     left_str, right_str = function_str.split("=")
-
+    
     left_expr = sp.sympify(parse_function(left_str.strip()))
 
     right_expr = sp.sympify(parse_function(right_str.strip()))
@@ -20,3 +18,8 @@ def solve(function_str):
     result = sp.solve(Equation, variable)
 
     return result
+
+
+
+    
+    

@@ -1,16 +1,12 @@
-import matplotlib
 import pygame
-
-matplotlib.use("Agg")
-import io
-
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import sympy as sp
-
+import io
 
 def convert_latex(latex_string):
     return sp.latex(sp.sympify(latex_string))
-
 
 def return_latex_surface(text, size=15, color=(0, 0, 0)):
 
@@ -18,20 +14,16 @@ def return_latex_surface(text, size=15, color=(0, 0, 0)):
 
     fig = plt.figure()
 
-    fig.text(
-        0.5, 0.5, f"${text}$", fontsize=size, ha="center", va="center", color=mpl_color
-    )
+    fig.text(0.5, 0.5, f"${text}$", fontsize=size, ha='center', va='center', color=mpl_color)
 
     buf = io.BytesIO()
 
-    plt.savefig(
-        buf, format="png", transparent=True, bbox_inches="tight", pad_inches=0.05
-    )
+    plt.savefig(buf, format='png', transparent=True, bbox_inches='tight', pad_inches=0.05)
 
     plt.close(fig)
 
     buf.seek(0)
 
     surface = pygame.image.load(buf)
-
+    
     return surface
