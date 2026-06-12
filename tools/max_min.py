@@ -1,40 +1,35 @@
 import sympy as sp
-from Tools.parse_function import parse_function
-    
+
+from tools import parse_function
+
+
 def find_extrema(function_str):
 
     function = parse_function(function_str)
 
     if function is not None:
-
-        x = sp.Symbol('x')
+        x = sp.Symbol("x")
 
         critical_points = sp.solve(sp.diff(function, x), x)
 
         extrema = []
 
         for point in critical_points:
-
             if point.is_real is False or point.has(sp.I):
-
                 continue
-            
+
             second_derivative = sp.diff(function, x, 2).subs(x, point)
 
-            if second_derivative > 0:
+            if second_derivative.is_positive:
+                extrema.append((point, "minima"))
 
-                extrema.append((point, 'minima'))
+            elif second_derivative.is_negative:
+                extrema.append((point, "maxima"))
 
-            elif second_derivative < 0:
-           
-                extrema.append((point, 'maxima'))
- 
             else:
-           
-                extrema.append((point, 'inflection_point'))
+                extrema.append((point, "inflection_point"))
 
         return extrema
 
     else:
-
         return None
